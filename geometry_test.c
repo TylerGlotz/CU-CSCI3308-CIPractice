@@ -4,7 +4,7 @@
  * CSCI 3308
  * Summer 2014
  *
- * This file containsunit tests for geometry.c
+ * This file contains unit tests for geometry.c
  *
  * Requires http://check.sourceforge.net/
  *
@@ -51,6 +51,17 @@ START_TEST(test_2d_eq)
     b.y = 8.88;
     ck_assert(!coord_2d_eq(&a, &b));
 
+}
+END_TEST
+
+START_TEST(test_2d_area_triangle){
+	coord_2d_t a;
+	coord_2d_t b;
+	coord_2d_t c;
+	
+	c.x = a.x = b.x = 0;
+        c.y = a.y = b.y = 0;
+        ck_assert(coord_2d_area_triangle(&a, &b, &c) == 0.0);
 }
 END_TEST
 
@@ -156,6 +167,9 @@ Suite* coord_2d_suite(void)
     TCase* tc_2d_eq = tcase_create("coord_2d_eq");
     tcase_add_test(tc_2d_eq, test_2d_eq);
 
+    TCase* tc_2d_area_triangle = tcase_create("coord_2d_area_triangle");
+    tcase_add_test(tc_2d_area_triangle, test_2d_area_triangle);
+
     TCase* tc_2d_dist = tcase_create("coord_2d_dist");
     tcase_add_test(tc_2d_dist, test_2d_dist);
 
@@ -165,7 +179,9 @@ Suite* coord_2d_suite(void)
     /* Add Cases to Suite */
     suite_add_tcase(s, tc_2d_eq);
     suite_add_tcase(s, tc_2d_dist);
-    suite_add_tcase(s, tc_2d_midpoint);
+    suite_add_tcase(s, tc_2d_midpoint); 
+    suite_add_tcase(s, tc_2d_area_triangle);
+
 
     /* Return Suite */
     return s;
